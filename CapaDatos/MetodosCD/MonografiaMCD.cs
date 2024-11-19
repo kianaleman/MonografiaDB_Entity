@@ -7,16 +7,32 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class MonografiaCD
+    public class MonografiaMCD
     {
         // Insertar Monografia
         public bool InsertarMonografia(Monografia mon)
         {
             using (var db = new RMEntities())
             {
+                var m = db.Monografia.FirstOrDefault(x => x.CodigoMonografia == mon.CodigoMonografia);
+                if (m != null)
+                    return false;
                 db.Monografia.Add(mon);
                 db.SaveChanges();
                 return true;
+            }
+        }
+
+        // Obtener Id de Monografia
+        public int ObtenerIdMonografia(string cod)
+        {
+            using (var db = new RMEntities())
+            {
+                Monografia mon= db.Monografia.FirstOrDefault(x => x.CodigoMonografia == cod);
+                if (mon == null)
+                    return -1;
+
+                return mon.IdMonografia;
             }
         }
 
@@ -85,7 +101,7 @@ namespace CapaDatos
         {
             using (var db = new RMEntities())
             {
-                var consulta = db.Monografia.Find(mon.CodigoMonografia);
+                var consulta = db.Monografia.FirstOrDefault(x => x.CodigoMonografia == mon.CodigoMonografia);
                 consulta.Titulo = mon.Titulo;
                 consulta.FechaDefendida = mon.FechaDefendida;
                 consulta.NotaDefensa = mon.NotaDefensa;
@@ -104,7 +120,14 @@ namespace CapaDatos
         {
             using (var db = new RMEntities())
             {
-                var consulta = db.Monografia.Find(cod);
+                var consulta = db.Monografia.FirstOrDefault(x => x.CodigoMonografia == cod);
+
+                // Eliminar monografia de la tabla promon, se elimina la relacion en promon
+                var eliminarPromon = db.Pro_Mon
+                    .Where(pm => pm.Id_Monografia == consulta.IdMonografia).ToList();
+
+                db.Pro_Mon.RemoveRange(eliminarPromon);
+
                 db.Monografia.Remove(consulta);
                 db.SaveChanges();
                 return true;

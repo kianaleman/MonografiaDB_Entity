@@ -6,21 +6,36 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class EstudianteCD
+    public class EstudianteMCD
     {
         // Insertar Estudiante
         public bool InsertarEstudiante(Estudiante est)
         {
             using (var db = new RMEntities()) 
             {
+                var es = db.Estudiante.FirstOrDefault(x => x.Carnet == est.Carnet);
+                if(es != null)
+                    return false;
                 db.Estudiante.Add(est);
                 db.SaveChanges();
                 return true;
             }
         }
 
-        // Listar Todos los Estudiantes
+        // Obtener Id de Estudiante
+        public int ObtenerIdEstudiante(string carnet)
+        {
+            using (var db = new RMEntities())
+            {
+                Estudiante est = db.Estudiante.FirstOrDefault(x => x.Carnet == carnet);
+                if (est == null)
+                    return -1;
 
+                return est.IdEstudiante;
+            }
+        }
+
+        // Listar Todos los Estudiantes
         public List<Estudiante> ListarTodosEstudiantes()
         {
             using (var db = new RMEntities())
@@ -47,7 +62,7 @@ namespace CapaDatos
         {
             using (var db = new RMEntities())
             {
-                var consulta = db.Estudiante.Find(est.Carnet);
+                var consulta = db.Estudiante.FirstOrDefault(x => x.Carnet == est.Carnet);
                 consulta.Nombres = est.Nombres;
                 consulta.Apellidos = est.Apellidos;
                 consulta.AnioNacimiento = est.AnioNacimiento;
@@ -65,7 +80,7 @@ namespace CapaDatos
         {
             using (var db = new RMEntities())
             {
-                var consulta = db.Estudiante.Find(carnet);
+                var consulta = db.Estudiante.FirstOrDefault(x => x.Carnet == carnet);
                 db.Estudiante.Remove(consulta);
                 db.SaveChanges();
                 return true;

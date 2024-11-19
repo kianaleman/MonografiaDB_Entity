@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CapaDatos
+namespace CapaNegocio.MetodosCN
 {
-    public class Pro_MonCD
+    public class MonografiaMCN
     {
 
     }

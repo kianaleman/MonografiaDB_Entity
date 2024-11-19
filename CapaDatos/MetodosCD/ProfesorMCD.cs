@@ -6,16 +6,32 @@ using System.Threading.Tasks;
 
 namespace CapaDatos
 {
-    public class ProfesorCD
+    public class ProfesorMCD
     {
         // Insertar Profesor
         public bool InsertarProfesor(Profesor pro)
         {
             using (var db = new RMEntities())
             {
+                var pr = db.Profesor.FirstOrDefault(x => x.Identificacion == pro.Identificacion);
+                if (pr != null)
+                    return false;
                 db.Profesor.Add(pro);
                 db.SaveChanges();
                 return true;
+            }
+        }
+
+        // Obtener Id de Profesor
+        public int ObtenerIdProfesor(string identificacion)
+        {
+            using (var db = new RMEntities())
+            {
+                Profesor pro = db.Profesor.FirstOrDefault(x => x.Identificacion == identificacion);
+                if (pro == null)
+                    return -1;
+
+                return pro.IdProfesor;
             }
         }
 
