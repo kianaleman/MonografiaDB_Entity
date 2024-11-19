@@ -1,0 +1,334 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RegistroMonograficoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="IdEstudiante" />
+          </Key>
+          <Property Name="IdEstudiante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Carnet" Type="nvarchar" MaxLength="20" />
+          <Property Name="Nombres" Type="nvarchar" MaxLength="30" />
+          <Property Name="Apellidos" Type="nvarchar" MaxLength="30" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="200" />
+          <Property Name="Telefono" Type="int" />
+          <Property Name="AnioNacimiento" Type="date" />
+          <Property Name="Id_Monografia" Type="int" />
+        </EntityType>
+        <EntityType Name="Monografia">
+          <Key>
+            <PropertyRef Name="IdMonografia" />
+          </Key>
+          <Property Name="IdMonografia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoMonografia" Type="nvarchar" MaxLength="20" />
+          <Property Name="Titulo" Type="nvarchar" MaxLength="100" />
+          <Property Name="FechaDefendida" Type="date" />
+          <Property Name="NotaDefensa" Type="int" />
+          <Property Name="TiempoOtorgado" Type="int" />
+          <Property Name="TiempoDeDefensa" Type="int" />
+          <Property Name="TiempoPreguntaYRespuesta" Type="int" />
+        </EntityType>
+        <EntityType Name="Pro_Mon">
+          <Key>
+            <PropertyRef Name="IdPro_Mon" />
+          </Key>
+          <Property Name="IdPro_Mon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Profesor" Type="int" />
+          <Property Name="Id_Monografia" Type="int" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="IdProfesor" />
+          </Key>
+          <Property Name="IdProfesor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identificacion" Type="nvarchar" MaxLength="20" />
+          <Property Name="Nombres" Type="nvarchar" MaxLength="30" />
+          <Property Name="Apellidos" Type="nvarchar" MaxLength="30" />
+          <Property Name="Direccion" Type="nvarchar" MaxLength="200" />
+          <Property Name="Telefono" Type="int" />
+          <Property Name="AnioNacimiento" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK__Estudiant__Id_Mo__4D94879B">
+          <End Role="Monografia" Type="Self.Monografia" Multiplicity="0..1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monografia">
+              <PropertyRef Name="IdMonografia" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="Id_Monografia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pro_Mon__Id_Mono__412EB0B6">
+          <End Role="Monografia" Type="Self.Monografia" Multiplicity="0..1" />
+          <End Role="Pro_Mon" Type="Self.Pro_Mon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monografia">
+              <PropertyRef Name="IdMonografia" />
+            </Principal>
+            <Dependent Role="Pro_Mon">
+              <PropertyRef Name="Id_Monografia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pro_Mon__Id_Prof__403A8C7D">
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="0..1" />
+          <End Role="Pro_Mon" Type="Self.Pro_Mon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="IdProfesor" />
+            </Principal>
+            <Dependent Role="Pro_Mon">
+              <PropertyRef Name="Id_Profesor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RegistroMonograficoModelStoreContainer">
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monografia" EntityType="Self.Monografia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pro_Mon" EntityType="Self.Pro_Mon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profesor" EntityType="Self.Profesor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Estudiant__Id_Mo__4D94879B" Association="Self.FK__Estudiant__Id_Mo__4D94879B">
+            <End Role="Monografia" EntitySet="Monografia" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pro_Mon__Id_Mono__412EB0B6" Association="Self.FK__Pro_Mon__Id_Mono__412EB0B6">
+            <End Role="Monografia" EntitySet="Monografia" />
+            <End Role="Pro_Mon" EntitySet="Pro_Mon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pro_Mon__Id_Prof__403A8C7D" Association="Self.FK__Pro_Mon__Id_Prof__403A8C7D">
+            <End Role="Profesor" EntitySet="Profesor" />
+            <End Role="Pro_Mon" EntitySet="Pro_Mon" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RegistroMonograficoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="IdEstudiante" />
+          </Key>
+          <Property Name="IdEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Carnet" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="AnioNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="Id_Monografia" Type="Int32" />
+          <NavigationProperty Name="Monografia" Relationship="Self.FK__Estudiant__Id_Mo__4D94879B" FromRole="Estudiante" ToRole="Monografia" />
+        </EntityType>
+        <EntityType Name="Monografia">
+          <Key>
+            <PropertyRef Name="IdMonografia" />
+          </Key>
+          <Property Name="IdMonografia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoMonografia" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Titulo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaDefendida" Type="DateTime" Precision="0" />
+          <Property Name="NotaDefensa" Type="Int32" />
+          <Property Name="TiempoOtorgado" Type="Int32" />
+          <Property Name="TiempoDeDefensa" Type="Int32" />
+          <Property Name="TiempoPreguntaYRespuesta" Type="Int32" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK__Estudiant__Id_Mo__4D94879B" FromRole="Monografia" ToRole="Estudiante" />
+          <NavigationProperty Name="Pro_Mon" Relationship="Self.FK__Pro_Mon__Id_Mono__412EB0B6" FromRole="Monografia" ToRole="Pro_Mon" />
+        </EntityType>
+        <EntityType Name="Pro_Mon">
+          <Key>
+            <PropertyRef Name="IdPro_Mon" />
+          </Key>
+          <Property Name="IdPro_Mon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Profesor" Type="Int32" />
+          <Property Name="Id_Monografia" Type="Int32" />
+          <Property Name="Rol" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Monografia" Relationship="Self.FK__Pro_Mon__Id_Mono__412EB0B6" FromRole="Pro_Mon" ToRole="Monografia" />
+          <NavigationProperty Name="Profesor" Relationship="Self.FK__Pro_Mon__Id_Prof__403A8C7D" FromRole="Pro_Mon" ToRole="Profesor" />
+        </EntityType>
+        <EntityType Name="Profesor">
+          <Key>
+            <PropertyRef Name="IdProfesor" />
+          </Key>
+          <Property Name="IdProfesor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Apellidos" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="AnioNacimiento" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Pro_Mon" Relationship="Self.FK__Pro_Mon__Id_Prof__403A8C7D" FromRole="Profesor" ToRole="Pro_Mon" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK__Estudiant__Id_Mo__4D94879B">
+          <End Role="Monografia" Type="Self.Monografia" Multiplicity="0..1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monografia">
+              <PropertyRef Name="IdMonografia" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="Id_Monografia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pro_Mon__Id_Mono__412EB0B6">
+          <End Role="Monografia" Type="Self.Monografia" Multiplicity="0..1" />
+          <End Role="Pro_Mon" Type="Self.Pro_Mon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monografia">
+              <PropertyRef Name="IdMonografia" />
+            </Principal>
+            <Dependent Role="Pro_Mon">
+              <PropertyRef Name="Id_Monografia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pro_Mon__Id_Prof__403A8C7D">
+          <End Role="Profesor" Type="Self.Profesor" Multiplicity="0..1" />
+          <End Role="Pro_Mon" Type="Self.Pro_Mon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profesor">
+              <PropertyRef Name="IdProfesor" />
+            </Principal>
+            <Dependent Role="Pro_Mon">
+              <PropertyRef Name="Id_Profesor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" />
+          <EntitySet Name="Monografia" EntityType="Self.Monografia" />
+          <EntitySet Name="Pro_Mon" EntityType="Self.Pro_Mon" />
+          <EntitySet Name="Profesor" EntityType="Self.Profesor" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK__Estudiant__Id_Mo__4D94879B" Association="Self.FK__Estudiant__Id_Mo__4D94879B">
+            <End Role="Monografia" EntitySet="Monografia" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pro_Mon__Id_Mono__412EB0B6" Association="Self.FK__Pro_Mon__Id_Mono__412EB0B6">
+            <End Role="Monografia" EntitySet="Monografia" />
+            <End Role="Pro_Mon" EntitySet="Pro_Mon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pro_Mon__Id_Prof__403A8C7D" Association="Self.FK__Pro_Mon__Id_Prof__403A8C7D">
+            <End Role="Profesor" EntitySet="Profesor" />
+            <End Role="Pro_Mon" EntitySet="Pro_Mon" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RegistroMonograficoModelStoreContainer" CdmEntityContainer="RMEntities">
+          <EntitySetMapping Name="Estudiante">
+            <EntityTypeMapping TypeName="RegistroMonograficoModel.Estudiante">
+              <MappingFragment StoreEntitySet="Estudiante">
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="Carnet" ColumnName="Carnet" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="AnioNacimiento" ColumnName="AnioNacimiento" />
+                <ScalarProperty Name="Id_Monografia" ColumnName="Id_Monografia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monografia">
+            <EntityTypeMapping TypeName="RegistroMonograficoModel.Monografia">
+              <MappingFragment StoreEntitySet="Monografia">
+                <ScalarProperty Name="IdMonografia" ColumnName="IdMonografia" />
+                <ScalarProperty Name="CodigoMonografia" ColumnName="CodigoMonografia" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="FechaDefendida" ColumnName="FechaDefendida" />
+                <ScalarProperty Name="NotaDefensa" ColumnName="NotaDefensa" />
+                <ScalarProperty Name="TiempoOtorgado" ColumnName="TiempoOtorgado" />
+                <ScalarProperty Name="TiempoDeDefensa" ColumnName="TiempoDeDefensa" />
+                <ScalarProperty Name="TiempoPreguntaYRespuesta" ColumnName="TiempoPreguntaYRespuesta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pro_Mon">
+            <EntityTypeMapping TypeName="RegistroMonograficoModel.Pro_Mon">
+              <MappingFragment StoreEntitySet="Pro_Mon">
+                <ScalarProperty Name="IdPro_Mon" ColumnName="IdPro_Mon" />
+                <ScalarProperty Name="Id_Profesor" ColumnName="Id_Profesor" />
+                <ScalarProperty Name="Id_Monografia" ColumnName="Id_Monografia" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profesor">
+            <EntityTypeMapping TypeName="RegistroMonograficoModel.Profesor">
+              <MappingFragment StoreEntitySet="Profesor">
+                <ScalarProperty Name="IdProfesor" ColumnName="IdProfesor" />
+                <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="AnioNacimiento" ColumnName="AnioNacimiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="RegistroMonograficoModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

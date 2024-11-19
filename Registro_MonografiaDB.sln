@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registro_MonografiaDB", "Registro_MonografiaDB\Registro_MonografiaDB.csproj", "{16F80F16-8CC7-4020-B00E-F5D3D616982F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CapaDatos", "CapaDatos\CapaDatos.csproj", "{BD6C2464-786D-45B9-818F-F2F8B1951810}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16F80F16-8CC7-4020-B00E-F5D3D616982F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16F80F16-8CC7-4020-B00E-F5D3D616982F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16F80F16-8CC7-4020-B00E-F5D3D616982F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16F80F16-8CC7-4020-B00E-F5D3D616982F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD6C2464-786D-45B9-818F-F2F8B1951810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD6C2464-786D-45B9-818F-F2F8B1951810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD6C2464-786D-45B9-818F-F2F8B1951810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD6C2464-786D-45B9-818F-F2F8B1951810}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DBB75B64-543D-496D-85D9-E00EC88DBDEC}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eaacf949741c4aa1abf3b852a23325fd" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="RegistroMonograficoModel.Estudiante" Width="1.5" PointX="11.625" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroMonograficoModel.Monografia" Width="1.5" PointX="6.875" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroMonograficoModel.Pro_Mon" Width="1.5" PointX="3.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroMonograficoModel.Profesor" Width="1.5" PointX="0.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegistroMonograficoModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="RegistroMonograficoModel.FK__Estudiant__Id_Mo__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistroMonograficoModel.FK__Pro_Mon__Id_Mono__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="RegistroMonograficoModel.FK__Pro_Mon__Id_Prof__403A8C7D" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
