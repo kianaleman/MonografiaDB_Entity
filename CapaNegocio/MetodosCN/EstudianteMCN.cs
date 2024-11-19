@@ -11,11 +11,11 @@ namespace CapaNegocio.MetodosCN
 {
     public class EstudianteMCN
     {
-        private readonly EstudianteMCD _metodos;
+        private readonly EstudianteMCD _metodosEstudiante;
 
         public EstudianteMCN()
         {
-            _metodos = new EstudianteMCD();
+            _metodosEstudiante = new EstudianteMCD();
         }
 
         public bool InsertarEstudiante(EstudianteCN est)
@@ -30,13 +30,13 @@ namespace CapaNegocio.MetodosCN
                 AnioNacimiento = est.AnioNacimiento,
                 Id_Monografia = est.Id_Monografia
             };
-            return _metodos.InsertarEstudiante(est2);
+            return _metodosEstudiante.InsertarEstudiante(est2);
         }
 
 
         public int ObtenerIdEstudiante(string carnet)
         {
-            return _metodos.ObtenerIdEstudiante(carnet);
+            return _metodosEstudiante.ObtenerIdEstudiante(carnet);
         }
 
         public DataTable ListarEstudiantes() 
@@ -50,7 +50,7 @@ namespace CapaNegocio.MetodosCN
             dt.Columns.Add("TELEFONO");
             dt.Columns.Add("AÑO DE NACIMIENTO");
 
-            _metodos.ListarTodosEstudiantes().ForEach(x =>
+            _metodosEstudiante.ListarTodosEstudiantes().ForEach(x =>
             {
                 dt.Rows.Add(x.IdEstudiante, x.Carnet, x.Nombres, x.Apellidos, x.Direccion, x.Telefono, x.AnioNacimiento);
             });
@@ -60,7 +60,7 @@ namespace CapaNegocio.MetodosCN
 
         public List<Estudiante> BuscarEstudiantePorNombre(string carnetNombre)
         {
-            return _metodos.BuscarEstudiantePorNombre(carnetNombre);
+            return _metodosEstudiante.BuscarEstudiantePorNombre(carnetNombre);
         }
 
         public bool ModificarEstudiante(EstudianteCN est)
@@ -73,12 +73,12 @@ namespace CapaNegocio.MetodosCN
                 Direccion = est.Direccion,
                 Telefono = est.Telefono,
             };
-            return _metodos.ModificarEstudiante(eOriginal);
+            return _metodosEstudiante.ModificarEstudiante(eOriginal);
         }
 
         public bool EliminarEstudiante(string carnet)
         {
-            return _metodos.EliminarEstudiante(carnet);
+            return _metodosEstudiante.EliminarEstudiante(carnet);
         }
 
     }

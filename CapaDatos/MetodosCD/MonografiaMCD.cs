@@ -10,18 +10,30 @@ namespace CapaDatos
     public class MonografiaMCD
     {
         // Insertar Monografia
-        public bool InsertarMonografia(Monografia mon)
+        public bool InsertarMonografia(Monografia mon, Pro_Mon[] profesores)
         {
             using (var db = new RMEntities())
             {
                 var m = db.Monografia.FirstOrDefault(x => x.CodigoMonografia == mon.CodigoMonografia);
                 if (m != null)
                     return false;
+             
                 db.Monografia.Add(mon);
+                db.SaveChanges();
+
+                int idMonografia = mon.IdMonografia;
+
+                foreach (var relacion in profesores)
+                {
+                    relacion.Id_Monografia = idMonografia;
+                    db.Pro_Mon.Add(relacion);
+                }
+
                 db.SaveChanges();
                 return true;
             }
         }
+
 
         // Obtener Id de Monografia
         public int ObtenerIdMonografia(string cod)
