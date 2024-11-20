@@ -56,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormBuscarMonografia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBuscarMonografia.Designer.cs">
+      <DependentUpon>FormBuscarMonografia.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,8 +89,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidades\Utilities.cs" />
+    <EmbeddedResource Include="FormBuscarMonografia.resx">
+      <DependentUpon>FormBuscarMonografia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormEstudiante.resx">
       <DependentUpon>FormEstudiante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMonografia.resx">
+      <DependentUpon>FormMonografia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipalPresentacion.resx">
       <DependentUpon>FormPrincipalPresentacion.cs</DependentUpon>

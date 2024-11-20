@@ -313,7 +313,7 @@ namespace Registro_MonografiaDB
 
             List<ProfesorCN> list = _metodosProfesor.BuscarProfesorPorNombreOIdentificacion(tbIdentificacionProfesorABuscar.Text);
             dt.Columns.Add("ID");
-            dt.Columns.Add("Carnet");
+            dt.Columns.Add("Identificacion");
             dt.Columns.Add("Nombres");
             dt.Columns.Add("Apellidos");
             dt.Columns.Add("Telefono");
