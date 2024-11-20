@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnGuardarCambios = new System.Windows.Forms.Button();
             this.dgvEstudiantes = new System.Windows.Forms.DataGridView();
             this.dtpAnioEstudiante = new System.Windows.Forms.DateTimePicker();
@@ -59,12 +59,13 @@
             // btnGuardarCambios
             // 
             this.btnGuardarCambios.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.btnGuardarCambios.Location = new System.Drawing.Point(261, 603);
+            this.btnGuardarCambios.Location = new System.Drawing.Point(44, 601);
             this.btnGuardarCambios.Name = "btnGuardarCambios";
             this.btnGuardarCambios.Size = new System.Drawing.Size(261, 50);
             this.btnGuardarCambios.TabIndex = 72;
             this.btnGuardarCambios.Text = "Guardar Cambios";
             this.btnGuardarCambios.UseVisualStyleBackColor = true;
+            this.btnGuardarCambios.Click += new System.EventHandler(this.btnGuardarCambios_Click);
             // 
             // dgvEstudiantes
             // 
@@ -77,14 +78,14 @@
             this.dgvEstudiantes.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgvEstudiantes.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvEstudiantes.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.SkyBlue;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.SkyBlue;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvEstudiantes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.SkyBlue;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.SkyBlue;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvEstudiantes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvEstudiantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEstudiantes.EnableHeadersVisualStyles = false;
             this.dgvEstudiantes.GridColor = System.Drawing.Color.Black;
@@ -94,11 +95,11 @@
             this.dgvEstudiantes.ReadOnly = true;
             this.dgvEstudiantes.RowHeadersVisible = false;
             this.dgvEstudiantes.RowHeadersWidth = 51;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.CornflowerBlue;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvEstudiantes.RowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.CornflowerBlue;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvEstudiantes.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvEstudiantes.RowTemplate.Height = 24;
             this.dgvEstudiantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEstudiantes.Size = new System.Drawing.Size(720, 501);
@@ -116,12 +117,13 @@
             // btnCancelarModificacion
             // 
             this.btnCancelarModificacion.Font = new System.Drawing.Font("Century Gothic", 12F);
-            this.btnCancelarModificacion.Location = new System.Drawing.Point(1488, 678);
+            this.btnCancelarModificacion.Location = new System.Drawing.Point(1268, 678);
             this.btnCancelarModificacion.Name = "btnCancelarModificacion";
             this.btnCancelarModificacion.Size = new System.Drawing.Size(201, 50);
             this.btnCancelarModificacion.TabIndex = 69;
             this.btnCancelarModificacion.Text = "Cancelar";
             this.btnCancelarModificacion.UseVisualStyleBackColor = true;
+            this.btnCancelarModificacion.Click += new System.EventHandler(this.btnCancelarModificacion_Click);
             // 
             // btnEliminarEstudiante
             // 
@@ -132,6 +134,7 @@
             this.btnEliminarEstudiante.TabIndex = 68;
             this.btnEliminarEstudiante.Text = "Eliminar";
             this.btnEliminarEstudiante.UseVisualStyleBackColor = true;
+            this.btnEliminarEstudiante.Click += new System.EventHandler(this.btnEliminarEstudiante_Click);
             // 
             // btnModificarEstudiante
             // 
@@ -142,6 +145,7 @@
             this.btnModificarEstudiante.TabIndex = 67;
             this.btnModificarEstudiante.Text = "Modificar";
             this.btnModificarEstudiante.UseVisualStyleBackColor = true;
+            this.btnModificarEstudiante.Click += new System.EventHandler(this.btnModificarEstudiante_Click);
             // 
             // label8
             // 
@@ -160,6 +164,7 @@
             this.tbCarnetABuscar.Name = "tbCarnetABuscar";
             this.tbCarnetABuscar.Size = new System.Drawing.Size(344, 32);
             this.tbCarnetABuscar.TabIndex = 65;
+            this.tbCarnetABuscar.TextChanged += new System.EventHandler(this.tbCarnetABuscar_TextChanged);
             // 
             // btnGuardar
             // 

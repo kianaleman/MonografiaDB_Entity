@@ -71,6 +71,7 @@ namespace CapaNegocio.MetodosCN
             var consulta = _metodosEstudiante.ListarTodosEstudiantes()
                 .Select(x => new EstudianteCN
                 {
+                    IdEstudiante = x.IdEstudiante,
                     Carnet = x.Carnet,
                     Nombres = x.Nombres,
                     Apellidos = x.Apellidos,
@@ -83,15 +84,28 @@ namespace CapaNegocio.MetodosCN
         }
 
 
-        public List<Estudiante> BuscarEstudiantePorNombre(string carnetNombre)
+        public List<EstudianteCN> BuscarEstudiantePorNombre(string carnetNombre)
         {
-            return _metodosEstudiante.BuscarEstudiantePorNombre(carnetNombre);
+            var consulta = _metodosEstudiante.BuscarEstudiantePorNombre(carnetNombre)
+                .Select(x => new EstudianteCN 
+                {
+                    IdEstudiante = x.IdEstudiante,
+                    Carnet = x.Carnet,
+                    Nombres = x.Nombres,
+                    Apellidos = x.Apellidos,
+                    Direccion = x.Direccion,
+                    Telefono = x.Telefono,
+                    Id_Monografia = x.Id_Monografia,
+                    AnioNacimiento = x.AnioNacimiento
+                }).ToList();
+            return consulta;
         }
 
         public bool ModificarEstudiante(EstudianteCN est)
         {
             Estudiante eOriginal = new Estudiante
             {
+                Carnet = est.Carnet,
                 Nombres = est.Nombres,
                 Apellidos = est.Apellidos,
                 AnioNacimiento = est.AnioNacimiento,

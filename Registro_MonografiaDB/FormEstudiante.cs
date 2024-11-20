@@ -84,12 +84,11 @@ namespace Registro_MonografiaDB
             dt.Columns.Add("Telefono");
             dt.Columns.Add("Direccion");
             dt.Columns.Add("Año de Nacimiento");
-            dt.Columns.Add("IdMonografia");
 
             _metodosEstudiantes.ListarTodosEstudiantes()
                 .ForEach(e =>
                 {
-                    dt.Rows.Add(e.IdEstudiante, e.Carnet, e.Nombres, e.Apellidos, e.Telefono, e.Direccion, e.AnioNacimiento, e.Id_Monografia);
+                    dt.Rows.Add(e.IdEstudiante, e.Carnet, e.Nombres, e.Apellidos, e.Telefono, e.Direccion, e.AnioNacimiento);
                 });
 
             return dt;
@@ -104,7 +103,11 @@ namespace Registro_MonografiaDB
 
         private void FormEstudiante_Load(object sender, EventArgs e)
         {
-
+            tbCarnetEstudiante.Enabled = true;
+            btnCancelarModificacion.Visible = false;
+            btnGuardar.Visible = true;
+            btnGuardarCambios.Visible = false;
+            CargarDgv();
         }
 
 
@@ -190,7 +193,7 @@ namespace Registro_MonografiaDB
                     Direccion = tbDireccionEstudiante.Text,
                     Telefono = int.Parse(mtbTelefonoEstudiante.Text),
                     AnioNacimiento = dtpAnioEstudiante.Value,
-                    Id_Monografia = -1
+                    Id_Monografia = null
                 };
 
                 bool res = _metodosEstudiantes.InsertarEstudiante(es);
@@ -207,6 +210,128 @@ namespace Registro_MonografiaDB
             {
                 MessageBox.Show("Compruebe que los campos hayan sido ingresados correctamente.");
             }
+        }
+
+        private void tbCarnetABuscar_TextChanged(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+
+            List<EstudianteCN> list = _metodosEstudiantes.BuscarEstudiantePorNombre(tbCarnetABuscar.Text);
+            dt.Columns.Add("ID");
+            dt.Columns.Add("Carnet");
+            dt.Columns.Add("Nombres");
+            dt.Columns.Add("Apellidos");
+            dt.Columns.Add("Telefono");
+            dt.Columns.Add("Direccion");
+            dt.Columns.Add("Año de Nacimiento");
+
+            list.ForEach(t =>
+                {
+                    dt.Rows.Add(t.IdEstudiante, t.Carnet, t.Nombres, t.Apellidos, t.Telefono, t.Direccion, t.AnioNacimiento);
+                });
+            dgvEstudiantes.DataSource = null;
+            dgvEstudiantes.DataSource = dt;
+        }
+
+        private void btnModificarEstudiante_Click(object sender, EventArgs e)
+        {
+            if (dgvEstudiantes.Rows.Count > 0)
+            {
+                if (dgvEstudiantes.SelectedRows.Count > 0)
+                {
+                    tbCarnetEstudiante.Enabled = false;
+                    btnEliminarEstudiante.Visible = false;
+                    btnCancelarModificacion.Visible = true;
+                    btnGuardar.Visible = false;
+                    btnGuardarCambios.Visible = true;
+                    tbCarnetEstudiante.Text = dgvEstudiantes.CurrentRow.Cells[1].Value.ToString();
+                    tbNombreEstudiante.Text = dgvEstudiantes.CurrentRow.Cells[2].Value.ToString();
+                    tbApellidosEstudiante.Text = dgvEstudiantes.CurrentRow.Cells[3].Value.ToString();
+                    mtbTelefonoEstudiante.Text = dgvEstudiantes.CurrentRow.Cells[4].Value.ToString();
+                    tbDireccionEstudiante.Text = dgvEstudiantes.CurrentRow.Cells[5].Value.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione una fila primero.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No hay estudiantes para modificar.");
+            }
+        }
+
+        private void btnGuardarCambios_Click(object sender, EventArgs e)
+        {
+            if (TbVacios() && !ErroresActivos())
+            {
+                EstudianteCN es = new EstudianteCN
+                {
+                    Carnet = tbCarnetEstudiante.Text,
+                    Nombres = tbNombreEstudiante.Text,
+                    Apellidos = tbApellidosEstudiante.Text,
+                    Direccion = tbDireccionEstudiante.Text,
+                    Telefono = int.Parse(mtbTelefonoEstudiante.Text),
+                    AnioNacimiento = dtpAnioEstudiante.Value
+                };
+
+                bool res = _metodosEstudiantes.ModificarEstudiante(es);
+                if (res)
+                {
+                    MessageBox.Show("Estudiante Modificado con Exito");
+                    tbCarnetEstudiante.Enabled = true;
+                    CargarDgv();
+                    LimpiarTb();
+                    LimpiarErrores();
+                    btnGuardarCambios.Visible = false;
+                    btnGuardar.Visible = true;
+                    btnCancelarModificacion.Visible = false;
+                    btnEliminarEstudiante.Visible = true;
+                }
+                else { MessageBox.Show("Fallo en la operacion: Error al modificar estudiante."); }
+            }
+            else
+            {
+                MessageBox.Show("Compruebe que los campos hayan sido ingresados correctamente.");
+            }
+        }
+
+        private void btnEliminarEstudiante_Click(object sender, EventArgs e)
+        {
+            if (dgvEstudiantes.Rows.Count > 0)
+            {
+                if (dgvEstudiantes.SelectedRows.Count > 0)
+                {
+                    DialogResult result = MessageBox.Show("¿Seguro de eliminar al estudiante?", "Confirmacion", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (result == DialogResult.OK)
+                    {
+                        if (_metodosEstudiantes.EliminarEstudiante(dgvEstudiantes.CurrentRow.Cells[1].Value.ToString()))
+                        {
+                            MessageBox.Show("Estudiante eliminado correctamente.");
+                            CargarDgv();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, seleccione una fila primero.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("No hay estudiantes para eliminar.");
+            }
+        }
+
+        private void btnCancelarModificacion_Click(object sender, EventArgs e)
+        {
+            LimpiarTb();
+            LimpiarErrores();
+            tbCarnetEstudiante.Enabled = true;
+            btnCancelarModificacion.Visible = false;
+            btnEliminarEstudiante.Visible = true;
+            btnGuardar.Visible = true;
+            btnGuardarCambios.Visible = false;
         }
     }
 }
