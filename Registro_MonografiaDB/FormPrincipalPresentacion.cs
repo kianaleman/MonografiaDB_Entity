@@ -29,9 +29,9 @@ namespace Registro_MonografiaDB
                 }
             }
 
-            // Cambiamos el color del boton seleccionado
-            botonSeleccionado.BackColor = Color.FromArgb(182, 201, 255); // Color de selección
-            botonSeleccionado.ForeColor = Color.Black; // Color de texto para el botón seleccionado (opcional)
+            // Cambiamos el color del boton seleccionado182, 201, 255
+            botonSeleccionado.BackColor = Color.FromArgb(136, 167, 255); // Color de selección
+            botonSeleccionado.ForeColor = Color.FromArgb(0, 67, 255); // Color de texto para el botón seleccionado (opcional)34, 34, 39
         }
 
         private void AbrirFormEnPanel(object Formulario, Button botonSeleccionado)

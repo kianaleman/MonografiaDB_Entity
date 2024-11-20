@@ -66,9 +66,20 @@ namespace CapaNegocio.MetodosCN
         //    return dt;
         //}
 
-        public List<Estudiante> ListarTodosEstudiantes() 
+        public List<EstudianteCN> ListarTodosEstudiantes() 
         {
-            return _metodosEstudiante.ListarTodosEstudiantes();
+            var consulta = _metodosEstudiante.ListarTodosEstudiantes()
+                .Select(x => new EstudianteCN
+                {
+                    Carnet = x.Carnet,
+                    Nombres = x.Nombres,
+                    Apellidos = x.Apellidos,
+                    Direccion = x.Direccion,
+                    Telefono = x.Telefono,
+                    Id_Monografia = x.Id_Monografia,
+                    AnioNacimiento = x.AnioNacimiento
+                }).ToList();
+            return consulta;
         }
 
 
