@@ -18,7 +18,7 @@ namespace CapaNegocio.MetodosCN
             _metodosMonografia = new MonografiaMCD();
         }
 
-        public bool InsertarMonografia(MonografiaCN mon, Pro_MonMCN[] promon)
+        public bool InsertarMonografia(MonografiaCN mon, Pro_MonCN[] promon)
         {
             Monografia monOriginal = new Monografia 
             {

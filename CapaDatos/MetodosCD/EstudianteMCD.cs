@@ -23,6 +23,22 @@ namespace CapaDatos
             }
         }
 
+        // Agregar monografia
+        public bool AgregarMonografia(Estudiante est)
+        {
+            using (var db = new RMEntities())
+            {
+                var es = db.Estudiante.FirstOrDefault(x => x.Carnet == est.Carnet);
+                if (es == null)
+                    return false;
+
+                es.Id_Monografia = est.Id_Monografia;
+                //db.Entry(es).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return true;
+            }
+        }
+
         // Obtener Id de Estudiante
         public int ObtenerIdEstudiante(string carnet)
         {

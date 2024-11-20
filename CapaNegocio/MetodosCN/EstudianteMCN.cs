@@ -33,7 +33,15 @@ namespace CapaNegocio.MetodosCN
             return _metodosEstudiante.InsertarEstudiante(est2);
         }
 
-
+        public bool AgregarMonografia(EstudianteCN est)
+        {
+            Estudiante estudianteOriginal = new Estudiante 
+            {
+                Carnet = est.Carnet,
+                Id_Monografia = est.Id_Monografia,
+            };
+            return _metodosEstudiante.AgregarMonografia(estudianteOriginal);
+        }
         public int ObtenerIdEstudiante(string carnet)
         {
             return _metodosEstudiante.ObtenerIdEstudiante(carnet);

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Registro_MonografiaDB
 {
-    public partial class Form1 : Form
+    public partial class FormMonografia : Form
     {
-        public Form1()
+        public FormMonografia()
         {
             InitializeComponent();
         }

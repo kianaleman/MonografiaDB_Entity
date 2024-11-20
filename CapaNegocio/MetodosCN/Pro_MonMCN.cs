@@ -33,9 +33,9 @@ namespace CapaNegocio.MetodosCN
             return _metodosProMon.MonografiasPorTutor(idTutor);
         }
 
-        public List<Monografia> RangoDeFechaMonografiaTutor(int idTutor)
+        public List<Monografia> RangoDeFechaMonografiaTutor(int idTutor, DateTime fechaInicio, DateTime fechaFin)
         {
-            return _metodosProMon.RangoDeFechaMonografiaTutor(idTutor);
+            return _metodosProMon.RangoDeFechaMonografiaTutor(idTutor, fechaInicio, fechaFin);
         }
 
     }
