@@ -98,7 +98,7 @@ namespace CapaDatos
 
         // Filtrar monografias por su nombre o codigo
 
-        public List<Monografia> BuscarMonografiaPorCodigo(string titleCode)
+        public List<Monografia> BuscarMonografiaPorNombreOCodigo(string titleCode)
         {
             using (var db = new RMEntities())
             {
@@ -114,6 +114,10 @@ namespace CapaDatos
             using (var db = new RMEntities())
             {
                 var consulta = db.Monografia.FirstOrDefault(x => x.CodigoMonografia == mon.CodigoMonografia);
+
+                if (consulta == null)
+                    return false;
+
                 consulta.Titulo = mon.Titulo;
                 consulta.FechaDefendida = mon.FechaDefendida;
                 consulta.NotaDefensa = mon.NotaDefensa;
@@ -133,6 +137,8 @@ namespace CapaDatos
             using (var db = new RMEntities())
             {
                 var consulta = db.Monografia.FirstOrDefault(x => x.CodigoMonografia == cod);
+                if (consulta == null)
+                    return false;
 
                 // Eliminar monografia de la tabla promon, se elimina la relacion en promon
                 var eliminarPromon = db.Pro_Mon

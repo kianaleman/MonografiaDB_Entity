@@ -39,24 +39,30 @@ namespace CapaNegocio.MetodosCN
             return _metodosEstudiante.ObtenerIdEstudiante(carnet);
         }
 
-        public DataTable ListarEstudiantes() 
+        //public DataTable ListarEstudiantes() 
+        //{
+        //    DataTable dt = new DataTable();
+        //    dt.Columns.Add("ID");
+        //    dt.Columns.Add("CARNET");
+        //    dt.Columns.Add("NOMBRES");
+        //    dt.Columns.Add("APELLIDOS");
+        //    dt.Columns.Add("DIRECCION");
+        //    dt.Columns.Add("TELEFONO");
+        //    dt.Columns.Add("AÑO DE NACIMIENTO");
+
+        //    _metodosEstudiante.ListarTodosEstudiantes().ForEach(x =>
+        //    {
+        //        dt.Rows.Add(x.IdEstudiante, x.Carnet, x.Nombres, x.Apellidos, x.Direccion, x.Telefono, x.AnioNacimiento);
+        //    });
+
+        //    return dt;
+        //}
+
+        public List<Estudiante> ListarTodosEstudiantes() 
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("ID");
-            dt.Columns.Add("CARNET");
-            dt.Columns.Add("NOMBRES");
-            dt.Columns.Add("APELLIDOS");
-            dt.Columns.Add("DIRECCION");
-            dt.Columns.Add("TELEFONO");
-            dt.Columns.Add("AÑO DE NACIMIENTO");
-
-            _metodosEstudiante.ListarTodosEstudiantes().ForEach(x =>
-            {
-                dt.Rows.Add(x.IdEstudiante, x.Carnet, x.Nombres, x.Apellidos, x.Direccion, x.Telefono, x.AnioNacimiento);
-            });
-
-            return dt;
+            return _metodosEstudiante.ListarTodosEstudiantes();
         }
+
 
         public List<Estudiante> BuscarEstudiantePorNombre(string carnetNombre)
         {

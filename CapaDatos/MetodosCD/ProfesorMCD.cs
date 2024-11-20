@@ -46,8 +46,8 @@ namespace CapaDatos
             }
         }
 
-        // Buscar Profesor por nombre o carnet
-        public List<Profesor> BuscarEstudiantePorNombre(string identificacionNombre)
+        // Buscar Profesor por nombre o identificacion
+        public List<Profesor> BuscarProfesorPorNombreOIdentifacion(string identificacionNombre)
         {
             using (var db = new RMEntities())
             {
@@ -64,6 +64,8 @@ namespace CapaDatos
             using (var db = new RMEntities())
             {
                 var consulta = db.Profesor.Find(pro.Identificacion);
+                if (consulta == null)
+                    return false;
                 consulta.Nombres = pro.Nombres;
                 consulta.Apellidos = pro.Apellidos;
                 consulta.AnioNacimiento = pro.AnioNacimiento;
@@ -82,6 +84,9 @@ namespace CapaDatos
             using (var db = new RMEntities())
             {
                 var consulta = db.Profesor.Find(identificacion);
+                if (consulta == null)
+                    return false;
+
                 db.Profesor.Remove(consulta);
                 db.SaveChanges();
                 return true;

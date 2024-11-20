@@ -16,6 +16,7 @@ namespace CapaDatos
                 var es = db.Estudiante.FirstOrDefault(x => x.Carnet == est.Carnet);
                 if(es != null)
                     return false;
+
                 db.Estudiante.Add(est);
                 db.SaveChanges();
                 return true;
@@ -63,6 +64,10 @@ namespace CapaDatos
             using (var db = new RMEntities())
             {
                 var consulta = db.Estudiante.FirstOrDefault(x => x.Carnet == est.Carnet);
+
+                if (consulta == null)
+                    return false;
+
                 consulta.Nombres = est.Nombres;
                 consulta.Apellidos = est.Apellidos;
                 consulta.AnioNacimiento = est.AnioNacimiento;
@@ -81,6 +86,9 @@ namespace CapaDatos
             using (var db = new RMEntities())
             {
                 var consulta = db.Estudiante.FirstOrDefault(x => x.Carnet == carnet);
+                if (consulta == null)
+                    return false;
+
                 db.Estudiante.Remove(consulta);
                 db.SaveChanges();
                 return true;

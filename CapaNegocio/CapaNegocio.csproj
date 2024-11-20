@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="MetodosCN\EstudianteMCN.cs" />
     <Compile Include="MetodosCN\MonografiaMCN.cs" />
+    <Compile Include="MetodosCN\ProfesorMCN.cs" />
+    <Compile Include="MetodosCN\Pro_MonMCN.cs" />
     <Compile Include="Modelo\EstudianteCN.cs" />
     <Compile Include="Modelo\MonografiaCN.cs" />
     <Compile Include="Modelo\ProfesorCN.cs" />
