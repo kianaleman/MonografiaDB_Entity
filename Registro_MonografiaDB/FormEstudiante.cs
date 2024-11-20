@@ -83,7 +83,7 @@ namespace Registro_MonografiaDB
             dt.Columns.Add("Apellidos");
             dt.Columns.Add("Telefono");
             dt.Columns.Add("Direccion");
-            dt.Columns.Add("Año de Nacimiento");
+            dt.Columns.Add("Año de Nacimiento", typeof(DateTime));
 
             _metodosEstudiantes.ListarTodosEstudiantes()
                 .ForEach(e =>
@@ -108,6 +108,7 @@ namespace Registro_MonografiaDB
             btnGuardar.Visible = true;
             btnGuardarCambios.Visible = false;
             CargarDgv();
+            dgvEstudiantes.Columns["Año de Nacimiento"].DefaultCellStyle.Format = "dd/MM/yyyy";
         }
 
 
@@ -223,7 +224,8 @@ namespace Registro_MonografiaDB
             dt.Columns.Add("Apellidos");
             dt.Columns.Add("Telefono");
             dt.Columns.Add("Direccion");
-            dt.Columns.Add("Año de Nacimiento");
+            dt.Columns.Add("Año de Nacimiento", typeof(DateTime));
+            
 
             list.ForEach(t =>
                 {
@@ -249,6 +251,7 @@ namespace Registro_MonografiaDB
                     tbApellidosEstudiante.Text = dgvEstudiantes.CurrentRow.Cells[3].Value.ToString();
                     mtbTelefonoEstudiante.Text = dgvEstudiantes.CurrentRow.Cells[4].Value.ToString();
                     tbDireccionEstudiante.Text = dgvEstudiantes.CurrentRow.Cells[5].Value.ToString();
+                    dtpAnioEstudiante.Value = Convert.ToDateTime(dgvEstudiantes.CurrentRow.Cells[6].Value);
                 }
                 else
                 {

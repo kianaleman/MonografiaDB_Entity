@@ -36,20 +36,44 @@ namespace CapaNegocio.MetodosCN
             return _metodosProfesor.ObtenerIdProfesor(identificacion);
         }
 
-        public List<Profesor> ListarTodosProfesores()
+        public List<ProfesorCN> ListarTodosProfesores()
         {
-            return _metodosProfesor.ListarTodosProfesores();
+            var consulta = _metodosProfesor.ListarTodosProfesores()
+                .Select(x => new ProfesorCN
+                {
+                    IdProfesor = x.IdProfesor,
+                    Identificacion = x.Identificacion,
+                    Nombres = x.Nombres,
+                    Apellidos = x.Apellidos,
+                    Direccion = x.Direccion,
+                    Telefono =  x.Telefono,
+                    AnioNacimiento = x.AnioNacimiento
+                }).ToList();
+            return consulta;
         }
 
-        public List<Profesor> BuscarProfesorPorNombreOIdentificacion(string idname)
+        public List<ProfesorCN> BuscarProfesorPorNombreOIdentificacion(string idname)
         {
-            return _metodosProfesor.BuscarProfesorPorNombreOIdentifacion(idname);
+            var consulta = _metodosProfesor.BuscarProfesorPorNombreOIdentifacion(idname)
+                .Select(x => new ProfesorCN
+                {
+                    IdProfesor = x.IdProfesor,
+                    Identificacion = x.Identificacion,
+                    Nombres = x.Nombres,
+                    Apellidos = x.Apellidos,
+                    Direccion = x.Direccion,
+                    Telefono = x.Telefono,
+                    AnioNacimiento = x.AnioNacimiento
+                }).ToList();
+
+            return consulta;
         }
 
         public bool ModificarProfesor(ProfesorCN pro)
         {
             Profesor profesorOriginal = new Profesor
             {
+                Identificacion = pro.Identificacion,
                 Nombres = pro.Nombres,
                 Apellidos = pro.Apellidos,
                 AnioNacimiento = pro.AnioNacimiento,

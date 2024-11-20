@@ -63,9 +63,11 @@ namespace CapaDatos
         {
             using (var db = new RMEntities())
             {
-                var consulta = db.Profesor.Find(pro.Identificacion);
+                var consulta = db.Profesor.FirstOrDefault(x => x.Identificacion == pro.Identificacion);
+                
                 if (consulta == null)
                     return false;
+                
                 consulta.Nombres = pro.Nombres;
                 consulta.Apellidos = pro.Apellidos;
                 consulta.AnioNacimiento = pro.AnioNacimiento;
