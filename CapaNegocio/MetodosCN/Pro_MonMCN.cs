@@ -28,14 +28,40 @@ namespace CapaNegocio.MetodosCN
             return _metodosProMon.InsertarProMon(pmOriginal);
         }
 
-        public List<Monografia> MonografiasPorTutor(int idTutor)
+        public List<MonografiaCN> MonografiasPorTutor(int idTutor)
         {
-            return _metodosProMon.MonografiasPorTutor(idTutor);
+            var consulta = _metodosProMon.MonografiasPorTutor(idTutor)
+               .Select(x => new MonografiaCN
+               {
+                   IdMonografia = x.IdMonografia,
+                   CodigoMonografia = x.CodigoMonografia,
+                   Titulo = x.Titulo,
+                   FechaDefendida = x.FechaDefendida,
+                   NotaDefensa = x.NotaDefensa,
+                   TiempoOtorgado = x.TiempoOtorgado,
+                   TiempoDeDefensa = x.TiempoDeDefensa,
+                   TiempoPreguntaYRespuesta = x.TiempoPreguntaYRespuesta
+               }).ToList();
+
+            return consulta;
         }
 
-        public List<Monografia> RangoDeFechaMonografiaTutor(int idTutor, DateTime fechaInicio, DateTime fechaFin)
+        public List<MonografiaCN> RangoDeFechaMonografiaTutor(int idTutor, DateTime fechaInicio, DateTime fechaFin)
         {
-            return _metodosProMon.RangoDeFechaMonografiaTutor(idTutor, fechaInicio, fechaFin);
+            var consulta = _metodosProMon.RangoDeFechaMonografiaTutor(idTutor, fechaInicio, fechaFin)
+               .Select(x => new MonografiaCN
+               {
+                   IdMonografia = x.IdMonografia,
+                   CodigoMonografia = x.CodigoMonografia,
+                   Titulo = x.Titulo,
+                   FechaDefendida = x.FechaDefendida,
+                   NotaDefensa = x.NotaDefensa,
+                   TiempoOtorgado = x.TiempoOtorgado,
+                   TiempoDeDefensa = x.TiempoDeDefensa,
+                   TiempoPreguntaYRespuesta = x.TiempoPreguntaYRespuesta
+               }).ToList();
+
+            return consulta;
         }
 
     }

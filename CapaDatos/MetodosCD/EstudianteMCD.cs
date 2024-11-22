@@ -62,6 +62,31 @@ namespace CapaDatos
             }
         }
 
+        // Listar Monografia Dado un Estudiante
+        public Monografia MonografiaDadoUnEstudiante(int idEstudiante)
+        {
+            using (var db = new RMEntities())
+            {
+                var consulta = (from est in db.Estudiante
+                                join mon in db.Monografia
+                                on est.Id_Monografia equals mon.IdMonografia
+                                where est.IdEstudiante == idEstudiante
+                                select mon).FirstOrDefault();
+                return consulta;
+            }
+        }
+
+        // Verificar si posee o no monografia
+        public int? VerificarExistenciaMonografia(string carnet)
+        {
+            using (var db = new RMEntities())
+            {
+                return (from e in db.Estudiante
+                               where e.Carnet == carnet
+                               select e.Id_Monografia).FirstOrDefault();
+            }
+        }
+
         // Buscar Estudiante por nombre o carnet
         public List<Estudiante> BuscarEstudiantePorNombre(string carnetNombre)
         {

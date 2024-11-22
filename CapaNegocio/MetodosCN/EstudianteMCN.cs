@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -83,6 +84,28 @@ namespace CapaNegocio.MetodosCN
             return consulta;
         }
 
+        public MonografiaCN ListarMonografiaDadoUnEstudiante(string carnet)
+        {
+            int idEstudiante = _metodosEstudiante.ObtenerIdEstudiante(carnet);
+            if (idEstudiante == -1) return null;
+
+            Monografia original = _metodosEstudiante.MonografiaDadoUnEstudiante(idEstudiante);
+            if (original == null) return null;
+
+            MonografiaCN copia = new MonografiaCN
+            {
+                IdMonografia = original.IdMonografia,
+                CodigoMonografia = original.CodigoMonografia,
+                Titulo = original.Titulo,
+                FechaDefendida = original.FechaDefendida,
+                NotaDefensa = original.NotaDefensa,
+                TiempoOtorgado = original.TiempoOtorgado,
+                TiempoDeDefensa = original.TiempoDeDefensa,
+                TiempoPreguntaYRespuesta = original.TiempoPreguntaYRespuesta
+            };
+
+            return copia;
+        }
 
         public List<EstudianteCN> BuscarEstudiantePorNombre(string carnetNombre)
         {
@@ -101,6 +124,10 @@ namespace CapaNegocio.MetodosCN
             return consulta;
         }
 
+        public int? VerificarExistenciaMonografia(string carnet)
+        {
+            return _metodosEstudiante.VerificarExistenciaMonografia(carnet);
+        }
         public bool ModificarEstudiante(EstudianteCN est)
         {
             Estudiante eOriginal = new Estudiante

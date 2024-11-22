@@ -51,25 +51,64 @@ namespace CapaNegocio.MetodosCN
             return _metodosMonografia.ObtenerIdMonografia(cod);
         }
 
-        public List<Monografia> ListarTodosMonografias()
+        public List<MonografiaCN> ListarTodosMonografias()
         {
-            return _metodosMonografia.ListarTodosMonografias();
+            var consulta = _metodosMonografia.ListarTodosMonografias()
+                .Select(x => new MonografiaCN
+                {
+                    IdMonografia = x.IdMonografia,
+                    CodigoMonografia = x.CodigoMonografia,
+                    Titulo = x.Titulo,
+                    FechaDefendida = x.FechaDefendida,
+                    NotaDefensa = x.NotaDefensa,
+                    TiempoOtorgado = x.TiempoOtorgado,
+                    TiempoDeDefensa = x.TiempoDeDefensa,
+                    TiempoPreguntaYRespuesta = x.TiempoPreguntaYRespuesta
+                }).ToList();
+
+            return consulta;
         }
 
-        public List<Monografia> ListarMonografiaRangoDeFecha(DateTime fechaInicio, DateTime fechaFin)
+        public List<MonografiaCN> ListarMonografiaRangoDeFecha(DateTime fechaInicio, DateTime fechaFin)
         {
-            return _metodosMonografia.ListarMonografiaRangoFecha(fechaInicio, fechaFin);
+            var consulta = _metodosMonografia.ListarMonografiaRangoFecha(fechaInicio, fechaFin)
+               .Select(x => new MonografiaCN
+               {
+                   IdMonografia = x.IdMonografia,
+                   CodigoMonografia = x.CodigoMonografia,
+                   Titulo = x.Titulo,
+                   FechaDefendida = x.FechaDefendida,
+                   NotaDefensa = x.NotaDefensa,
+                   TiempoOtorgado = x.TiempoOtorgado,
+                   TiempoDeDefensa = x.TiempoDeDefensa,
+                   TiempoPreguntaYRespuesta = x.TiempoPreguntaYRespuesta
+               }).ToList();
+
+            return consulta;
+        }
+
+        public (string Titulo, string Tutor, List<string> Jurado, List<string> Estudiantes) ObtenerDetallesDeMonografia(int idMonografia)
+        {
+            return _metodosMonografia.ObtenerDetallesDeMonografia(idMonografia);
         }
 
 
-        public IEnumerable<dynamic> FiltrarDatosDeMonografiaPorTutor(DateTime fechaInicio, DateTime fechaFinal)
+        public List<MonografiaCN> BuscarMonografiaPorNombreOCodigo(string titleCode)
         {
-            return _metodosMonografia.FiltrarDatosMonografia(fechaInicio, fechaFinal);
-        }
+            var consulta = _metodosMonografia.BuscarMonografiaPorNombreOCodigo(titleCode)
+               .Select(x => new MonografiaCN
+               {
+                   IdMonografia = x.IdMonografia,
+                   CodigoMonografia = x.CodigoMonografia,
+                   Titulo = x.Titulo,
+                   FechaDefendida = x.FechaDefendida,
+                   NotaDefensa = x.NotaDefensa,
+                   TiempoOtorgado = x.TiempoOtorgado,
+                   TiempoDeDefensa = x.TiempoDeDefensa,
+                   TiempoPreguntaYRespuesta = x.TiempoPreguntaYRespuesta
+               }).ToList();
 
-        public List<Monografia> BuscarMonografiaPorNombreOCodigo(string titleCode)
-        {
-            return _metodosMonografia.BuscarMonografiaPorNombreOCodigo(titleCode);
+            return consulta;
         }
 
         public bool ModificarMonografia(MonografiaCN mon)

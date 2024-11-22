@@ -36,6 +36,30 @@ namespace Registro_MonografiaDB
             }
         }
 
+        public bool TbNoVacio()
+        {
+            if (String.IsNullOrWhiteSpace(tbCodigoMonografia.Text)
+                || String.IsNullOrWhiteSpace(tbNotaDefensa.Text)
+                || String.IsNullOrWhiteSpace(tbTiempoOtorgado.Text)
+                || String.IsNullOrWhiteSpace(tbTiempoDefensa.Text)
+                || String.IsNullOrWhiteSpace(tbTiempoPreguntasRespuestas.Text)
+                || String.IsNullOrWhiteSpace(tbTituloMonografia.Text))
+                return false;
+
+            return true;
+        }
+
+        // Funcion para verificar si un estudiante ya fue seleccionado
+        public bool EstudianteYaExiste(List<string> lista, string carnet)
+        {
+            return lista.Contains(carnet);
+        }
+
+        // Funcion Para verificar que no se repita la seleccion de profesor
+        public bool ProfesorYaExiste(List<Pro_MonCN> lista, int idProfesor)
+        {
+            return lista.Any(p => p.Id_Profesor == idProfesor);
+        }
 
         private void tbIdentificacionTutor_TextChanged(object sender, EventArgs e)
         {
@@ -71,6 +95,7 @@ namespace Registro_MonografiaDB
             });
             dgvEstudiante0.DataSource = null;
             dgvEstudiante0.DataSource = dt;
+            dgvEstudiante0.ClearSelection();
         }
 
         private void tbCarnetEstudiante1_TextChanged(object sender, EventArgs e)
@@ -89,6 +114,7 @@ namespace Registro_MonografiaDB
             });
             dgvEstudiante1.DataSource = null;
             dgvEstudiante1.DataSource = dt;
+            dgvEstudiante1.ClearSelection();
         }
 
         private void tbCarnetEstudiante2_TextChanged(object sender, EventArgs e)
@@ -107,6 +133,7 @@ namespace Registro_MonografiaDB
             });
             dgvEstudiante2.DataSource = null;
             dgvEstudiante2.DataSource = dt;
+            dgvEstudiante2.ClearSelection();
         }
 
         private void tbJurado0_TextChanged(object sender, EventArgs e)
@@ -165,6 +192,12 @@ namespace Registro_MonografiaDB
 
         private void btnRegistrarMonografia_Click(object sender, EventArgs e)
         {
+            if (!TbNoVacio())
+            {
+                MessageBox.Show("Favor Llenar todos los campos");
+                return;
+            }
+
             MonografiaCN mon = new MonografiaCN 
             {
                 CodigoMonografia = tbCodigoMonografia.Text,
@@ -179,40 +212,76 @@ namespace Registro_MonografiaDB
             List<Pro_MonCN> promonList = new List<Pro_MonCN>();
 
             // Tutor
-            promonList.Add(new Pro_MonCN
+            int idTutor = _metodosProfesor.ObtenerIdProfesor(dgvTutor.CurrentRow.Cells[0].Value.ToString());
+            if (!ProfesorYaExiste(promonList, idTutor))
             {
-                Id_Profesor = _metodosProfesor.ObtenerIdProfesor(dgvTutor.CurrentRow.Cells[0].Value.ToString()),
-                Rol = "Tutor"
-            });
+                promonList.Add(new Pro_MonCN
+                {
+                    Id_Profesor = idTutor,
+                    Rol = "Tutor"
+                });
+            }
+            else 
+            {
+                MessageBox.Show("Revisar que ningun Profesor se repita");
+                return;
+            }
 
             // Jurado 0
             if (dgvJurado0.CurrentRow != null)
             {
-                promonList.Add(new Pro_MonCN
+                int idJurado0 = _metodosProfesor.ObtenerIdProfesor(dgvJurado0.CurrentRow.Cells[0].Value.ToString());
+                if (!ProfesorYaExiste(promonList, idJurado0))
                 {
-                    Id_Profesor = _metodosProfesor.ObtenerIdProfesor(dgvJurado0.CurrentRow.Cells[0].Value.ToString()),
-                    Rol = "Jurado"
-                });
+                    promonList.Add(new Pro_MonCN
+                    {
+                        Id_Profesor = idJurado0,
+                        Rol = "Jurado"
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Revisar que ningun Profesor se repita");
+                    return;
+                }
             }
 
             // Jurado 1
             if (dgvJurado1.CurrentRow != null)
             {
-                promonList.Add(new Pro_MonCN
+                int idJurado1 = _metodosProfesor.ObtenerIdProfesor(dgvJurado1.CurrentRow.Cells[0].Value.ToString());
+                if (!ProfesorYaExiste(promonList, idJurado1))
                 {
-                    Id_Profesor = _metodosProfesor.ObtenerIdProfesor(dgvJurado1.CurrentRow.Cells[0].Value.ToString()),
-                    Rol = "Jurado"
-                });
+                    promonList.Add(new Pro_MonCN
+                    {
+                        Id_Profesor = idJurado1,
+                        Rol = "Jurado"
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Revisar que ningun Profesor se repita");
+                    return;
+                }
             }
 
             // Jurado 2
             if (dgvJurado2.CurrentRow != null)
             {
-                promonList.Add(new Pro_MonCN
+                int idJurado2 = _metodosProfesor.ObtenerIdProfesor(dgvJurado2.CurrentRow.Cells[0].Value.ToString());
+                if (!ProfesorYaExiste(promonList, idJurado2))
                 {
-                    Id_Profesor = _metodosProfesor.ObtenerIdProfesor(dgvJurado2.CurrentRow.Cells[0].Value.ToString()),
-                    Rol = "Jurado"
-                });
+                    promonList.Add(new Pro_MonCN
+                    {
+                        Id_Profesor = idJurado2,
+                        Rol = "Jurado"
+                    });
+                }
+                else
+                {
+                    MessageBox.Show("Revisar que ningun Profesor se repita");
+                    return;
+                }
             }
 
             // Convertir la lista en arreglo
@@ -221,35 +290,71 @@ namespace Registro_MonografiaDB
 
             if (_metodosMonografia.InsertarMonografia(mon, promon))
             {
-                // Verificar si se ha seleccionado un estudiante antes de agregar
+                // Lista para almacenar los carnets de estudiantes seleccionados
+                List<string> estudiantesProcesados = new List<string>();
+
+                // Estudiante 0
                 if (dgvEstudiante0.CurrentRow != null)
                 {
-                    EstudianteCN temp = new EstudianteCN
+                    string carnet0 = dgvEstudiante0.CurrentRow.Cells[0].Value.ToString();
+                    if (!EstudianteYaExiste(estudiantesProcesados, carnet0))
                     {
-                        Carnet = dgvEstudiante0.CurrentRow.Cells[0].Value.ToString(),
-                        Id_Monografia = _metodosMonografia.ObtenerIdMonografia(tbCodigoMonografia.Text)
-                    };
-                    _metodosEstudiantes.AgregarMonografia(temp);
+                        EstudianteCN temp = new EstudianteCN
+                        {
+                            Carnet = carnet0,
+                            Id_Monografia = _metodosMonografia.ObtenerIdMonografia(tbCodigoMonografia.Text)
+                        };
+                        _metodosEstudiantes.AgregarMonografia(temp);
+                        estudiantesProcesados.Add(carnet0);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Revisar que ningun Estudiante se repita");
+                        return;
+                    }
                 }
 
+
+                // Estudiante 1
                 if (dgvEstudiante1.CurrentRow != null)
                 {
-                    EstudianteCN temp = new EstudianteCN
+                    string carnet1 = dgvEstudiante1.CurrentRow.Cells[0].Value.ToString();
+                    if (!EstudianteYaExiste(estudiantesProcesados, carnet1))
                     {
-                        Carnet = dgvEstudiante1.CurrentRow.Cells[0].Value.ToString(),
-                        Id_Monografia = _metodosMonografia.ObtenerIdMonografia(tbCodigoMonografia.Text)
-                    };
-                    _metodosEstudiantes.AgregarMonografia(temp);
+                        EstudianteCN temp = new EstudianteCN
+                        {
+                            Carnet = carnet1,
+                            Id_Monografia = _metodosMonografia.ObtenerIdMonografia(tbCodigoMonografia.Text)
+                        };
+                        _metodosEstudiantes.AgregarMonografia(temp);
+                        estudiantesProcesados.Add(carnet1);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Revisar que ningun Estudiante se repita");
+                        return;
+                    }
                 }
 
+                // Estudiante 2
                 if (dgvEstudiante2.CurrentRow != null)
                 {
-                    EstudianteCN temp = new EstudianteCN
+                    string carnet2 = dgvEstudiante2.CurrentRow.Cells[0].Value.ToString();
+                    if (!EstudianteYaExiste(estudiantesProcesados, carnet2))
                     {
-                        Carnet = dgvEstudiante2.CurrentRow.Cells[0].Value.ToString(),
-                        Id_Monografia = _metodosMonografia.ObtenerIdMonografia(tbCodigoMonografia.Text)
-                    };
-                    _metodosEstudiantes.AgregarMonografia(temp);
+                        EstudianteCN temp = new EstudianteCN
+                        {
+                            Carnet = carnet2,
+                            Id_Monografia = _metodosMonografia.ObtenerIdMonografia(tbCodigoMonografia.Text)
+                        };
+                        _metodosEstudiantes.AgregarMonografia(temp);
+                        estudiantesProcesados.Add(carnet2);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Revisar que ningun Estudiante se repita");
+                        return;
+                    }
                 }
 
                 MessageBox.Show("Monografia Registrada Con exito");
@@ -259,15 +364,6 @@ namespace Registro_MonografiaDB
             {
                 MessageBox.Show("Error Al registrar Monografia");
             }
-
-
-
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void BtnBuscarMonografia_Click(object sender, EventArgs e)
@@ -275,6 +371,39 @@ namespace Registro_MonografiaDB
             FormBuscarMonografia openForm = new FormBuscarMonografia();
             openForm.ShowDialog();
             openForm.Hide();
+        }
+
+        private void dgvEstudiante0_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string carnet = dgvEstudiante0.CurrentRow.Cells[0].Value.ToString();
+            if (_metodosEstudiantes.VerificarExistenciaMonografia(carnet) != null)
+            {
+                MessageBox.Show("Este Estudiante ya Posee Una Monografia");
+                dgvEstudiante0.ClearSelection();
+                return;
+            }
+        }
+
+        private void dgvEstudiante1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string carnet = dgvEstudiante1.CurrentRow.Cells[0].Value.ToString();
+            if (_metodosEstudiantes.VerificarExistenciaMonografia(carnet) != null)
+            {
+                MessageBox.Show("Este Estudiante ya Posee Una Monografia");
+                dgvEstudiante1.ClearSelection();
+                return;
+            }
+        }
+
+        private void dgvEstudiante2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string carnet = dgvEstudiante2.CurrentRow.Cells[0].Value.ToString();
+            if (_metodosEstudiantes.VerificarExistenciaMonografia(carnet) != null)
+            {
+                MessageBox.Show("Este Estudiante ya Posee Una Monografia");
+                dgvEstudiante2.ClearSelection();
+                return;
+            }
         }
     }
 }

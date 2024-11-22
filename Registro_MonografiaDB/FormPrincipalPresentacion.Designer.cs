@@ -29,16 +29,18 @@
         private void InitializeComponent()
         {
             this.panelSeleccion = new System.Windows.Forms.Panel();
-            this.panelContenedor = new System.Windows.Forms.Panel();
-            this.BtnEstudiante = new System.Windows.Forms.Button();
-            this.BtnProfesor = new System.Windows.Forms.Button();
             this.BtnMonografia = new System.Windows.Forms.Button();
+            this.BtnProfesor = new System.Windows.Forms.Button();
+            this.BtnEstudiante = new System.Windows.Forms.Button();
+            this.panelContenedor = new System.Windows.Forms.Panel();
+            this.BtnExit = new System.Windows.Forms.Button();
             this.panelSeleccion.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSeleccion
             // 
             this.panelSeleccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.panelSeleccion.Controls.Add(this.BtnExit);
             this.panelSeleccion.Controls.Add(this.BtnMonografia);
             this.panelSeleccion.Controls.Add(this.BtnProfesor);
             this.panelSeleccion.Controls.Add(this.BtnEstudiante);
@@ -48,13 +50,35 @@
             this.panelSeleccion.Size = new System.Drawing.Size(1789, 92);
             this.panelSeleccion.TabIndex = 0;
             // 
-            // panelContenedor
+            // BtnMonografia
             // 
-            this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContenedor.Location = new System.Drawing.Point(0, 92);
-            this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(1789, 792);
-            this.panelContenedor.TabIndex = 1;
+            this.BtnMonografia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.BtnMonografia.FlatAppearance.BorderSize = 0;
+            this.BtnMonografia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnMonografia.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnMonografia.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.BtnMonografia.Location = new System.Drawing.Point(1133, 10);
+            this.BtnMonografia.Name = "BtnMonografia";
+            this.BtnMonografia.Size = new System.Drawing.Size(590, 75);
+            this.BtnMonografia.TabIndex = 1;
+            this.BtnMonografia.Text = "Monografia";
+            this.BtnMonografia.UseVisualStyleBackColor = false;
+            this.BtnMonografia.Click += new System.EventHandler(this.BtnMonografia_Click);
+            // 
+            // BtnProfesor
+            // 
+            this.BtnProfesor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
+            this.BtnProfesor.FlatAppearance.BorderSize = 0;
+            this.BtnProfesor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnProfesor.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnProfesor.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.BtnProfesor.Location = new System.Drawing.Point(578, 10);
+            this.BtnProfesor.Name = "BtnProfesor";
+            this.BtnProfesor.Size = new System.Drawing.Size(546, 75);
+            this.BtnProfesor.TabIndex = 1;
+            this.BtnProfesor.Text = "Profesor";
+            this.BtnProfesor.UseVisualStyleBackColor = false;
+            this.BtnProfesor.Click += new System.EventHandler(this.BtnProfesor_Click);
             // 
             // BtnEstudiante
             // 
@@ -65,41 +89,32 @@
             this.BtnEstudiante.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.BtnEstudiante.Location = new System.Drawing.Point(6, 10);
             this.BtnEstudiante.Name = "BtnEstudiante";
-            this.BtnEstudiante.Size = new System.Drawing.Size(590, 75);
+            this.BtnEstudiante.Size = new System.Drawing.Size(564, 75);
             this.BtnEstudiante.TabIndex = 0;
             this.BtnEstudiante.Text = "Estudiante";
             this.BtnEstudiante.UseVisualStyleBackColor = false;
             this.BtnEstudiante.Click += new System.EventHandler(this.BtnEstudiante_Click);
             // 
-            // BtnProfesor
+            // panelContenedor
             // 
-            this.BtnProfesor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.BtnProfesor.FlatAppearance.BorderSize = 0;
-            this.BtnProfesor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnProfesor.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnProfesor.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.BtnProfesor.Location = new System.Drawing.Point(599, 10);
-            this.BtnProfesor.Name = "BtnProfesor";
-            this.BtnProfesor.Size = new System.Drawing.Size(590, 75);
-            this.BtnProfesor.TabIndex = 1;
-            this.BtnProfesor.Text = "Profesor";
-            this.BtnProfesor.UseVisualStyleBackColor = false;
-            this.BtnProfesor.Click += new System.EventHandler(this.BtnProfesor_Click);
+            this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelContenedor.Location = new System.Drawing.Point(0, 92);
+            this.panelContenedor.Name = "panelContenedor";
+            this.panelContenedor.Size = new System.Drawing.Size(1789, 792);
+            this.panelContenedor.TabIndex = 1;
             // 
-            // BtnMonografia
+            // BtnExit
             // 
-            this.BtnMonografia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(102)))), ((int)(((byte)(204)))));
-            this.BtnMonografia.FlatAppearance.BorderSize = 0;
-            this.BtnMonografia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnMonografia.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnMonografia.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.BtnMonografia.Location = new System.Drawing.Point(1192, 10);
-            this.BtnMonografia.Name = "BtnMonografia";
-            this.BtnMonografia.Size = new System.Drawing.Size(590, 75);
-            this.BtnMonografia.TabIndex = 1;
-            this.BtnMonografia.Text = "Monografia";
-            this.BtnMonografia.UseVisualStyleBackColor = false;
-            this.BtnMonografia.Click += new System.EventHandler(this.BtnMonografia_Click);
+            this.BtnExit.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.BtnExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnExit.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnExit.Location = new System.Drawing.Point(1736, 29);
+            this.BtnExit.Name = "BtnExit";
+            this.BtnExit.Size = new System.Drawing.Size(44, 41);
+            this.BtnExit.TabIndex = 3;
+            this.BtnExit.Text = "X";
+            this.BtnExit.UseVisualStyleBackColor = true;
+            this.BtnExit.Click += new System.EventHandler(this.BtnExit_Click);
             // 
             // FormPrincipalPresentacion
             // 
@@ -126,6 +141,7 @@
         private System.Windows.Forms.Button BtnMonografia;
         private System.Windows.Forms.Button BtnProfesor;
         private System.Windows.Forms.Button BtnEstudiante;
+        private System.Windows.Forms.Button BtnExit;
     }
 }
 

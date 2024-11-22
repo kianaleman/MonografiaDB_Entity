@@ -15,6 +15,7 @@ namespace Registro_MonografiaDB
         public FormPrincipalPresentacion()
         {
             InitializeComponent();
+            AbrirFormEnPanel(new FormEstudiante(), BtnEstudiante);
         }
 
         private void CambiarColorBoton(Button botonSeleccionado)
@@ -69,6 +70,11 @@ namespace Registro_MonografiaDB
         private void BtnMonografia_Click(object sender, EventArgs e)
         {
             AbrirFormEnPanel(new FormMonografia(), BtnMonografia);
+        }
+
+        private void BtnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

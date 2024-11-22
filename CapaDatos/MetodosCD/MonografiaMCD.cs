@@ -59,6 +59,7 @@ namespace CapaDatos
             }
         }
 
+
         // Listar Monografia por Rango de fecha
         public List<Monografia> ListarMonografiaRangoFecha(DateTime fechaInicio, DateTime fechaFinal)
         {
@@ -68,33 +69,49 @@ namespace CapaDatos
             return monografiaFiltradaPorRangoFecha;
         }
 
-        // Listar TituloMonografia - Tutor - Fecha - Estudiantes
-        public IEnumerable<dynamic> FiltrarDatosMonografia(DateTime fechaInicio, DateTime fechaFinal)
+        // Listar Titulo, Tutor, Jurado, Estudiantes dado el ID de una monografia
+        public (string Titulo, string Tutor, List<string> Jurado, List<string> Estudiantes) ObtenerDetallesDeMonografia(int idMonografia)
         {
             using (var db = new RMEntities())
             {
-                var consultaFiltrada =
-                    from mon in db.Monografia
-                    join proMon in db.Pro_Mon
-                    on mon.IdMonografia equals proMon.Id_Monografia
-                    join pro in db.Profesor
-                    on proMon.Id_Profesor equals pro.IdProfesor
-                    where mon.FechaDefendida >= fechaInicio && mon.FechaDefendida <= fechaFinal
-                    && proMon.Rol == "Tutor"
-                    select new {
-                        TituloMonografia = mon.Titulo,
-                        Tutor = pro.Nombres,
-                        FechaD = mon.FechaDefendida,
-                        NombreEstudiantes = db.Estudiante
-                        .Where(est => est.Id_Monografia == mon.IdMonografia)
-                        .Take(3)
-                        .Select(est => est.Nombres)
-                        .DefaultIfEmpty("")
-                        .Aggregate((current, next) => $"{current}, {next}")
-                    };
-                return consultaFiltrada.ToList();
+                // Obtener el titulo de la monografia
+                var titulo = db.Monografia
+                    .Where(m => m.IdMonografia == idMonografia)
+                    .Select(m => m.Titulo)
+                    .FirstOrDefault();
+
+                // Obtener el tutor
+                var tutor = db.Pro_Mon
+                    .Where(pm => pm.Id_Monografia == idMonografia && pm.Rol == "Tutor")
+                    .Join(db.Profesor,
+                          pm => pm.Id_Profesor,
+                          p => p.IdProfesor,
+                          (pm, p) => p.Nombres)
+                    .FirstOrDefault();
+
+                // Obtener el jurado (maximo 3)
+                var jurado = db.Pro_Mon
+                    .Where(pm => pm.Id_Monografia == idMonografia && pm.Rol == "Jurado")
+                    .Join(db.Profesor,
+                          pm => pm.Id_Profesor,
+                          p => p.IdProfesor,
+                          (pm, p) => p.Nombres)
+                    .Take(3) // Limitar a 3
+                    .ToList();
+
+                // Obtener los estudiantes (maximo 3)
+                var estudiantes = db.Estudiante
+                    .Where(e => e.Id_Monografia == idMonografia)
+                    .Select(e => e.Nombres)
+                    .Take(3) // Limitar a 3
+                    .ToList();
+
+                return (Titulo: titulo, Tutor: tutor, Jurado: jurado, Estudiantes: estudiantes);
             }
         }
+
+
+
 
         // Filtrar monografias por su nombre o codigo
 

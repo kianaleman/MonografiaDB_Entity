@@ -62,6 +62,12 @@
     <Compile Include="FormBuscarMonografia.Designer.cs">
       <DependentUpon>FormBuscarMonografia.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormDetallesMonografia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormDetallesMonografia.Designer.cs">
+      <DependentUpon>FormDetallesMonografia.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +97,9 @@
     <Compile Include="Utilidades\Utilities.cs" />
     <EmbeddedResource Include="FormBuscarMonografia.resx">
       <DependentUpon>FormBuscarMonografia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormDetallesMonografia.resx">
+      <DependentUpon>FormDetallesMonografia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEstudiante.resx">
       <DependentUpon>FormEstudiante.cs</DependentUpon>
